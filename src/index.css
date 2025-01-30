@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+128&family=Libre+Barcode+128+Text&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+:root {
+  --primary-color: rgb(250, 61, 99);
+  --primary-text-color: rgb(0, 0, 0);
+  --secondary-text-color: rgb(86, 86, 86);
+  --black-color: rgb(0, 0, 0);
+  --white-color: rgb(255, 255, 255);
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  font-family: 'Lora', serif;
+  box-sizing: border-box;
+}

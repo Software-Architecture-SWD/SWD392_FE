@@ -1,0 +1,250 @@
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
+import { Link } from "react-router-dom"; // For React Router
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Badge from "@mui/material/Badge";
+
+const pages = [
+  { name: "Home", path: "/" },
+  { name: "Products", path: "/products" },
+  { name: "Blog", path: "/blogs" },
+  { name: "About Us", path: "/about-us" },
+];
+const settings = ["Profile", "Logout"];
+
+function CustomerHeader({ appBarRef }) {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  return (
+    <AppBar
+      ref={appBarRef}
+      position="fixed"
+      sx={{
+        // background:
+        //   "linear-gradient(to bottom, rgba(24, 24, 24, 0.88), rgba(169, 169, 169, 0.8))",
+        backgroundColor: "rgba(255, 255, 255, 0.85)",
+      }}
+    >
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <AdbIcon
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1, color: "black" }}
+          />
+          <Typography
+            variant="h6"
+            noWrap
+            component={Link}
+            to="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "Lora",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "var(--primary-text-color)",
+              textDecoration: "none",
+            }}
+          >
+            Beauty{" "}
+            <span style={{ color: "var(--primary-color)" }}>Product</span>
+          </Typography>
+
+          {/* Mobile Menu */}
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="open navigation menu"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="var(--primary-text-color)"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{ display: { xs: "block", md: "none" } }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Typography
+                    component={Link}
+                    to={page.path}
+                    sx={{
+                      textDecoration: "none",
+                      color: "black",
+                      fontFamily: "Lora",
+                      ":hover": {
+                        color: "var(--primary-color)",
+                      },
+                    }}
+                  >
+                    {page.name}
+                  </Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+
+          {/* Desktop Menu */}
+          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component={Link}
+            to="/"
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "Lora",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "var(--primary-text-color)",
+              textDecoration: "none",
+            }}
+          >
+            Beauty{" "}
+            <span style={{ color: "var(--primary-color)" }}>Product</span>
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {pages.map((page) => (
+              <Button
+                key={page.name}
+                component={Link}
+                to={page.path}
+                onClick={handleCloseNavMenu}
+                sx={{
+                  my: 2,
+                  color: "var(--primary-text-color)",
+                  display: "block",
+                  fontFamily: "Lora",
+                  ":hover": {
+                    color: "var(--primary-color)",
+                  },
+                }}
+              >
+                {page.name}
+              </Button>
+            ))}
+          </Box>
+
+          {/* Notification & Shopping Cart */}
+          <Box
+            sx={{
+              flexGrow: 0,
+              marginRight: "2rem",
+              display: "flex",
+              // gap: "2rem",
+            }}
+          >
+            <Button sx={{ color: "white" }}>
+              <Badge
+                badgeContent={100}
+                max={99}
+                sx={{
+                  "& .MuiBadge-badge": {
+                    backgroundColor: "var(--primary-color)",
+                  },
+                }}
+              >
+                <NotificationsActiveIcon sx={{ color: "black" }} />
+              </Badge>
+            </Button>
+
+            <Button sx={{ color: "white" }}>
+              <Badge
+                badgeContent={10}
+                max={99}
+                color="warning"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    backgroundColor: "var(--primary-color)",
+                  },
+                }}
+              >
+                <ShoppingCartIcon sx={{ color: "black" }} />
+              </Badge>
+            </Button>
+          </Box>
+
+          {/* User Menu */}
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" sx={{ fontFamily: "Lora" }}>
+                    {setting}
+                  </Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+}
+
+export default CustomerHeader;
