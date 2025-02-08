@@ -204,8 +204,10 @@ export default function ProductCard({ product }) {
             marginBottom: "1rem",
             width: "clamp(50%, 100% - 1rem, 100%)",
             transition: "background-color 0.3s ease",
-            ":hover": {
-              backgroundColor: "var(--primary-color)",
+            transition: "all 0.3s ease-in-out",
+            "&:hover": {
+              background: "linear-gradient(45deg, #FF8E53, #FF6B6B)",
+              boxShadow: "0px 6px 14px rgba(255, 107, 107, 0.6)",
             },
           }}
         >

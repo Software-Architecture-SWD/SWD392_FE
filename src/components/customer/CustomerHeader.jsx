@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,7 +14,6 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link } from "react-router-dom"; // For React Router
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
@@ -26,8 +27,9 @@ const pages = [
 const settings = ["Profile", "Logout"];
 
 function CustomerHeader({ appBarRef }) {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const location = useLocation(); // Get current route
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -49,8 +51,6 @@ function CustomerHeader({ appBarRef }) {
       ref={appBarRef}
       position="fixed"
       sx={{
-        // background:
-        //   "linear-gradient(to bottom, rgba(24, 24, 24, 0.88), rgba(169, 169, 169, 0.8))",
         backgroundColor: "rgba(255, 255, 255, 0.85)",
       }}
     >
@@ -113,7 +113,10 @@ function CustomerHeader({ appBarRef }) {
                     to={page.path}
                     sx={{
                       textDecoration: "none",
-                      color: "black",
+                      color:
+                        location.pathname === page.path
+                          ? "var(--primary-color)"
+                          : "black",
                       fontFamily: "Lora",
                       ":hover": {
                         color: "var(--primary-color)",
@@ -128,26 +131,6 @@ function CustomerHeader({ appBarRef }) {
           </Box>
 
           {/* Desktop Menu */}
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component={Link}
-            to="/"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "Lora",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "var(--primary-text-color)",
-              textDecoration: "none",
-            }}
-          >
-            Beauty{" "}
-            <span style={{ color: "var(--primary-color)" }}>Product</span>
-          </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
@@ -156,10 +139,19 @@ function CustomerHeader({ appBarRef }) {
                 to={page.path}
                 onClick={handleCloseNavMenu}
                 sx={{
+                  textAlign: "center",
                   my: 2,
-                  color: "var(--primary-text-color)",
+                  color:
+                    location.pathname === page.path
+                      ? "var(--primary-color)"
+                      : "var(--primary-text-color)",
                   display: "block",
                   fontFamily: "Lora",
+                  fontWeight: location.pathname === page.path ? 700 : 400,
+                  borderBottom:
+                    location.pathname === page.path
+                      ? "2px solid var(--primary-color)"
+                      : "none",
                   ":hover": {
                     color: "var(--primary-color)",
                   },
@@ -171,14 +163,7 @@ function CustomerHeader({ appBarRef }) {
           </Box>
 
           {/* Notification & Shopping Cart */}
-          <Box
-            sx={{
-              flexGrow: 0,
-              marginRight: "2rem",
-              display: "flex",
-              // gap: "2rem",
-            }}
-          >
+          <Box sx={{ flexGrow: 0, marginRight: "2rem", display: "flex" }}>
             <Button sx={{ color: "white" }}>
               <Badge
                 badgeContent={100}

@@ -15,10 +15,11 @@ export default function NewArrival() {
       <Typography
         sx={{
           textAlign: "center",
-          fontFamily: "'Libre Barcode 128 Text', cursive",
-          fontSize: "5rem",
+          fontFamily: "'Lora', cursive",
+          fontSize: "4rem",
           fontWeight: "500",
           color: "var(--black-color)",
+          mb: "1rem",
         }}
       >
         NEW ARRIVAL
