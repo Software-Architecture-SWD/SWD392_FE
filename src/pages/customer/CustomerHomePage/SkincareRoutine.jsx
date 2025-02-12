@@ -262,8 +262,9 @@ export default function SkincareRoutine() {
               sx={{
                 padding: 2,
                 borderRadius: "20px",
-                backgroundColor: darkMode ? "#111" : "white",
+                backgroundColor: darkMode ? "#0B192C" : "white",
                 mb: "2rem",
+                transition: "background-color 0.3s ease-in-out",
               }}
             >
               <Box
@@ -287,6 +288,7 @@ export default function SkincareRoutine() {
                     textAlign: "center",
                     flexGrow: 1,
                     color: darkMode ? "white" : "black",
+                    transition: "color 0.3s ease-in-out",
                   }}
                 >
                   {darkMode ? "Night Routine" : "Morning Routine"}
@@ -345,7 +347,7 @@ export default function SkincareRoutine() {
                           background:
                             "linear-gradient(45deg, #FF8E53, #FF6B6B)",
                           boxShadow: "0px 6px 14px rgba(255, 107, 107, 0.6)",
-                          cursor: "default"
+                          cursor: "default",
                         },
                       }}
                     >

@@ -8,7 +8,7 @@ export default function Story() {
 
   return (
     <Box
-      sx={{ backgroundColor: "rgba(0, 0, 0, 1)", width: "100%", mb: "5rem" }}
+      sx={{ backgroundColor: "rgba(0, 0, 0, 0.9)", width: "100%", mb: "5rem" }}
     >
       <Grid
         container
