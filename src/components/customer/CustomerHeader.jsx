@@ -54,7 +54,7 @@ function CustomerHeader({ appBarRef }) {
         backgroundColor: "rgba(255, 255, 255, 0.85)",
       }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="100%">
         <Toolbar disableGutters>
           <AdbIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1, color: "black" }}

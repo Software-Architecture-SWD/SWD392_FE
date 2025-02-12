@@ -5,30 +5,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Grid from "@mui/material/Grid2";
 import { Typewriter } from "react-simple-typewriter";
 import ArrowForwardTwoToneIcon from "@mui/icons-material/ArrowForwardTwoTone";
-import { animated, useSpring } from "react-spring";
-import { useState } from "react";
-
-// Import images correctly
-import slider1 from "/src/assets/images/HomeSlider/slider1.jpg";
-import slider2 from "/src/assets/images/HomeSlider/slider2.jpg";
-import slider3 from "/src/assets/images/HomeSlider/slider3.jpg";
 import { useNavigate } from "react-router-dom";
 
-const AnimatedButton = animated(Button);
-
 export default function CarouselHomePage() {
-  const slides = [slider1, slider2, slider3];
   const navigate = useNavigate();
-
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Define the spring animation
-  const springProps = useSpring({
-    boxShadow: isHovered
-      ? "0 0 10px 10px #FF8E53"
-      : "0 0 0px 0px var(--primary-color)",
-    config: { tension: 100, friction: 100 },
-  });
 
   return (
     <Box
@@ -44,17 +24,22 @@ export default function CarouselHomePage() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          background: "url(src/assets/images/HomeSlider/home_banner.jpg)",
+          backgroundPosition: "50% 57%",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
         }}
       >
         <Typography
           sx={{
-            color: "black",
+            color: "white",
             fontFamily: "Lora",
             fontSize: { xs: "3vw", sm: "2.5vw", md: "2rem", lg: "2.5rem" },
             textAlign: "center",
             fontStyle: "italic",
             letterSpacing: "0.2rem",
             mb: "1rem",
+            mt: "2rem",
           }}
         >
           "True beauty comes from within, but a little{" "}
@@ -62,13 +47,13 @@ export default function CarouselHomePage() {
             <Typewriter
               words={['lipstick never hurts."', 'confidence never hurts."']}
               loop
-              typeSpeed={150}
+              typeSpeed={200}
               deleteSpeed={100}
             />
           </span>
         </Typography>
 
-        <AnimatedButton
+        <Button
           variant="contained"
           onClick={() => navigate("/login")}
           endIcon={<ArrowForwardTwoToneIcon />}
@@ -83,40 +68,15 @@ export default function CarouselHomePage() {
             borderRadius: "30px",
             backgroundColor: "black",
             color: "white",
+            transition: "background 2s ease",
+            ":hover": {
+              background: "linear-gradient(45deg, #FF8E53, #FF6B6B)",
+            },
           }}
-          style={springProps}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
         >
           Get Started
-        </AnimatedButton>
+        </Button>
       </Box>
-
-      {/* React Responsive Carousel */}
-      <Carousel
-        showArrows={true}
-        autoPlay={true}
-        infiniteLoop={true}
-        interval={2000}
-        showThumbs={false}
-        showStatus={false}
-      >
-        {slides.map((src, index) => (
-          <div key={index}>
-            <img
-              src={src}
-              alt={`Slide ${index + 1}`}
-              style={{
-                width: "80%",
-                objectFit: "cover",
-                display: "block",
-                margin: "0 auto",
-                borderRadius: "1rem",
-              }}
-            />
-          </div>
-        ))}
-      </Carousel>
     </Box>
   );
 }
