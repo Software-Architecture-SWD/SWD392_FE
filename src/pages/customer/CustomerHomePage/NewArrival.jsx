@@ -1,14 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import ProductCard from "../../../components/common/ProductCard";
-import { useState } from "react";
-import { API_GET_PRODUCT } from "../../../constants";
 import Grid from "@mui/material/Grid2";
-import axiosClient from "../../../axiosClient";
-import useProducts from "../../../hooks/useProducts";
+import Loading from "../../../components/common/Loading";
 
 export default function NewArrival() {
-  const { products, loading, error } = useProducts();
+  const loading = true;
 
   return (
     <Box sx={{ backgroundColor: "white", mb: "5rem" }}>
@@ -33,26 +30,36 @@ export default function NewArrival() {
           height: "100%",
         }}
       >
-        <Grid
-          container
-          spacing={5}
-          sx={{
-            margin: "2rem 2rem 2rem 2rem",
-          }}
-        >
-          {products.map((product) => (
+        {
+          (loading ? (
+            <Loading />
+          ) : error ? (
+            <Typography textAlign="center" color="error" p={2}>
+              Failed to load products
+            </Typography>
+          ) : (
             <Grid
-              size={{ lg: 3, md: 4, sm: 6, xs: 12 }}
-              key={product.id}
+              container
+              spacing={5}
               sx={{
-                display: "flex",
-                justifyContent: "center",
+                margin: "2rem 2rem 2rem 2rem",
               }}
             >
-              <ProductCard product={product} />
+              {products.map((product) => (
+                <Grid
+                  size={{ lg: 3, md: 4, sm: 6, xs: 12 }}
+                  key={product.id}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <ProductCard product={product} />
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
+          ))
+        }
       </Box>
     </Box>
   );

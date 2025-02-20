@@ -47,9 +47,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     [theme.breakpoints.up("sm")]: {
-      width: "35ch",
+      width: "25ch",
       "&:focus": {
-        width: "60ch",
+        width: "40ch",
       },
     },
   },
@@ -57,7 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchBar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <Box sx={{ "& > :not(style)": { m: 2 } }}>
         <Typography align="right"></Typography>
       </Box>
@@ -65,7 +65,7 @@ export default function SearchBar() {
         position="static"
         sx={{ backgroundColor: "transparent", boxShadow: "none", marginTop: 2 }}
       >
-        <Toolbar sx={{ justifyContent: "center" }}>
+        <Toolbar sx={{}}>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

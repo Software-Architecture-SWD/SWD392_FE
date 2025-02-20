@@ -40,6 +40,7 @@ export default function CarouselHomePage() {
             letterSpacing: "0.2rem",
             mb: "1rem",
             mt: "2rem",
+            cursor: "default",
           }}
         >
           "True beauty comes from within, but a little{" "}
@@ -68,7 +69,7 @@ export default function CarouselHomePage() {
             borderRadius: "30px",
             backgroundColor: "black",
             color: "white",
-            transition: "background 2s ease",
+            transition: "background 0.5s ease-out",
             ":hover": {
               background: "linear-gradient(45deg, #FF8E53, #FF6B6B)",
             },

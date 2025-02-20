@@ -7,6 +7,8 @@ import {
   Box,
   IconButton,
   InputAdornment,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import Grid from "@mui/material/Grid2";
@@ -14,19 +16,35 @@ import { useNavigate } from "react-router-dom";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import axiosClient from "../../axiosClient";
+import { API_POST_LOGIN, BASE_URL } from "../../constants";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleLogin = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
+  function handleLogin() {
+    axiosClient
+      .post(API_POST_LOGIN, { username, password })
+      .then((res) => {
+        const { accessToken, refreshToken } = res.data;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        console.log("Login successful");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <Container
@@ -52,7 +70,7 @@ export default function LoginPage() {
         {/* Left Side - Login Form */}
         <Grid container sx={{ flex: 1 }}>
           <Grid
-            size={8}
+            size={7.5}
             sx={{
               padding: "2rem",
               display: "flex",
@@ -100,13 +118,13 @@ export default function LoginPage() {
             </Typography>
 
             <TextField
-              label="Email"
+              label="Username"
               variant="outlined"
               size="small"
               fullWidth
               sx={{ mb: 2 }}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
 
             <TextField
@@ -115,7 +133,7 @@ export default function LoginPage() {
               size="small"
               fullWidth
               type={showPassword ? "text" : "password"}
-              sx={{ mb: 3 }}
+              sx={{ mb: 2 }}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               InputProps={{
@@ -128,6 +146,36 @@ export default function LoginPage() {
                 ),
               }}
             />
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mb: 2,
+              }}
+            >
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    sx={{
+                      color: "secondary",
+                      "&.Mui-checked": {
+                        color: "var(--primary-color)",
+                      },
+                    }}
+                  />
+                }
+                label="Remember Me"
+                sx={{ fontFamily: "Lora" }}
+              />
+
+              <Link to={"/forgot-password"} color="var(--primary-color)">
+                Forgot Password
+              </Link>
+            </Box>
 
             <Button
               fullWidth
@@ -170,7 +218,7 @@ export default function LoginPage() {
 
           {/* Right Side - Dark Sidebar */}
           <Grid
-            size={4}
+            size={4.5}
             sx={{
               backgroundColor: "#222",
               display: "flex",
