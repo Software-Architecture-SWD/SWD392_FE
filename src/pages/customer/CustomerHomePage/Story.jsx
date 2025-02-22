@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function Story() {
   const navigate = useNavigate();
-
   return (
     <Box
       sx={{ backgroundColor: "rgba(0, 0, 0, 0.9)", width: "100%", mb: "5rem" }}
@@ -46,7 +45,7 @@ export default function Story() {
                   fontSize: "3rem",
                   color: "var(--primary-color)",
                   textShadow: "0 0 5px rgb(255, 4, 238)",
-                  mb:"1rem",
+                  mb: "1rem",
                 }}
               >
                 BeautyProduct – Your Destination for Radiant Beauty
@@ -54,7 +53,11 @@ export default function Story() {
               <Typography
                 variant="body1"
                 paragraph
-                sx={{ fontFamily: "Lora, serif", fontSize: "1.5rem", mb:"2rem" }}
+                sx={{
+                  fontFamily: "Lora, serif",
+                  fontSize: "1.5rem",
+                  mb: "2rem",
+                }}
               >
                 Welcome to <strong>BeautyProduct</strong>, where beauty meets
                 confidence! We bring you a curated selection of high-quality
@@ -64,7 +67,11 @@ export default function Story() {
               <Typography
                 variant="body1"
                 paragraph
-                sx={{ fontFamily: "Lora, serif", fontSize: "1.5rem", mb:"2rem" }}
+                sx={{
+                  fontFamily: "Lora, serif",
+                  fontSize: "1.5rem",
+                  mb: "2rem",
+                }}
               >
                 At <strong>BeautyProduct</strong>, we believe that beauty is for
                 everyone. Whether you're looking for nourishing skincare, bold
@@ -74,7 +81,11 @@ export default function Story() {
               <Typography
                 variant="body1"
                 paragraph
-                sx={{ fontFamily: "Lora, serif", fontSize: "1.5rem", mb:"1rem" }}
+                sx={{
+                  fontFamily: "Lora, serif",
+                  fontSize: "1.5rem",
+                  mb: "1rem",
+                }}
               >
                 Explore the latest trends, discover must-have beauty essentials,
                 and embrace the glow you deserve. Because at{" "}
@@ -103,7 +114,9 @@ export default function Story() {
               >
                 <Button
                   variant="contained"
-                  onClick={() => navigate("/blogs")}
+                  onClick={() => {
+                    navigate("/blogs");
+                  }}
                   sx={{
                     background: "linear-gradient(45deg,#ff6b6b, #FF8E53)",
                     color: "white",

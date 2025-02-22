@@ -15,36 +15,70 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import Grid from "@mui/material/Grid2";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../features/authSlice";
+import { toast } from "react-toastify";
 
 export default function RegisterPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error } = useSelector((state) => state.auth);
+
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
+    username: "",
     password: "",
     confirmPassword: "",
-    address: "",
-    city: "",
+    email: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleRegister = () => {
-    if (!termsAccepted) {
-      setError("You must accept the Terms and Conditions to proceed.");
+  const handleRegister = async () => {
+    if (!formData.email.trim()) {
+      toast.error("Email is required!");
       return;
     }
-    setError("");
-    console.log("Form Data:", formData);
+
+    if (!formData.username.trim()) {
+      toast.error("Username is required!");
+      return;
+    }
+
+    if (!formData.password) {
+      toast.error("Password is required!");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("The confirmation password does not match!");
+      return;
+    }
+
+    if (!termsAccepted) {
+      toast.info("You need to accept the terms and conditions!");
+      return;
+    }
+
+    const newUser = {
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+    };
+
+    try {
+      console.log("Registering user:", newUser);
+      const res = await dispatch(registerUser(newUser)).unwrap();
+      toast.success(res.message || "Registered successfully!");
+      navigate("/login");
+    } catch (err) {
+      toast.error(err.details || "Registration failed!");
+    }
   };
 
   return (
@@ -112,26 +146,6 @@ export default function RegisterPage() {
             {/* Left Column */}
             <Grid size={6}>
               <TextField
-                label="First Name"
-                name="firstName"
-                variant="outlined"
-                size="small"
-                fullWidth
-                sx={{ mb: 2 }}
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-              <TextField
-                label="Last Name"
-                name="lastName"
-                variant="outlined"
-                size="small"
-                fullWidth
-                sx={{ mb: 2 }}
-                value={formData.lastName}
-                onChange={handleChange}
-              />
-              <TextField
                 label="Email"
                 name="email"
                 variant="outlined"
@@ -142,13 +156,13 @@ export default function RegisterPage() {
                 onChange={handleChange}
               />
               <TextField
-                label="Phone"
-                name="phone"
+                label="Username"
+                name="username"
                 variant="outlined"
                 size="small"
                 fullWidth
                 sx={{ mb: 2 }}
-                value={formData.phone}
+                value={formData.username}
                 onChange={handleChange}
               />
             </Grid>
@@ -205,26 +219,6 @@ export default function RegisterPage() {
                   ),
                 }}
               />
-              <TextField
-                label="Address"
-                name="address"
-                variant="outlined"
-                size="small"
-                fullWidth
-                sx={{ mb: 2 }}
-                value={formData.address}
-                onChange={handleChange}
-              />
-              <TextField
-                label="City"
-                name="city"
-                variant="outlined"
-                size="small"
-                fullWidth
-                sx={{ mb: 2 }}
-                value={formData.city}
-                onChange={handleChange}
-              />
             </Grid>
           </Grid>
 
@@ -239,8 +233,8 @@ export default function RegisterPage() {
                 />
               }
               label={
-                <Typography variant="body2" >
-                  I agree to the{" "}
+                <Typography variant="body2">
+                  I accept with{" "}
                   <Typography
                     component="a"
                     href="/terms"
@@ -251,22 +245,18 @@ export default function RegisterPage() {
                       cursor: "pointer",
                     }}
                   >
-                    Terms and Conditions
+                    terms and conditions
                   </Typography>
                 </Typography>
               }
             />
-            {error && (
-              <Typography color="red" fontSize="0.875rem">
-                {error}
-              </Typography>
-            )}
           </Grid>
 
           {/* Register Button */}
           <Grid size={12}>
             <Button
               fullWidth
+              disabled={loading}
               sx={{
                 background: "linear-gradient(135deg, #ff6b6b, #ff8e53)",
                 color: "white",
@@ -281,7 +271,7 @@ export default function RegisterPage() {
               }}
               onClick={handleRegister}
             >
-              Register
+              {loading ? "Registering..." : "Register"}
             </Button>
           </Grid>
         </Grid>

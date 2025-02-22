@@ -17,34 +17,48 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import axiosClient from "../../axiosClient";
-import { API_POST_LOGIN, BASE_URL } from "../../constants";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../features/authSlice";
+import { sendOtp } from "../../features/authSlice";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  function handleLogin() {
-    axiosClient
-      .post(API_POST_LOGIN, { username, password })
-      .then((res) => {
-        const { accessToken, refreshToken } = res.data;
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-        console.log("Login successful");
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  const handleLogin = async () => {
+    if (!formData.username || !formData.password) {
+      toast.error("Please enter username and password!");
+      return;
+    }
+
+    try {
+      const res = await dispatch(loginUser(formData)).unwrap();
+
+      // Store accessToken & refreshToken after login
+      localStorage.setItem("accessToken", res.accessToken);
+      localStorage.setItem("refreshToken", res.refreshToken);
+
+      if (!res.emailConfirmed) {
+        toast.info("Please enter OTP from your email!");
+        navigate("/otp");
+        return;
+      }
+      toast.success(res?.message || "Login Successful!");
+      navigate("/");
+    } catch (err) {
+      toast.error(err?.message || "Login Failed! Check your credentials.");
+    }
+  };
 
   return (
     <Container
@@ -114,7 +128,7 @@ export default function LoginPage() {
               LOG IN
             </Typography>
             <Typography variant="body2" color="gray" textAlign="center" mb={3}>
-              How are you today ?
+              How are you today?
             </Typography>
 
             <TextField
@@ -123,8 +137,10 @@ export default function LoginPage() {
               size="small"
               fullWidth
               sx={{ mb: 2 }}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={formData.username}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
             />
 
             <TextField
@@ -134,8 +150,10 @@ export default function LoginPage() {
               fullWidth
               type={showPassword ? "text" : "password"}
               sx={{ mb: 2 }}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -172,7 +190,11 @@ export default function LoginPage() {
                 sx={{ fontFamily: "Lora" }}
               />
 
-              <Link to={"/forgot-password"} color="var(--primary-color)">
+              <Link
+                to={"/forgot-password"}
+                color="var(--primary-color)"
+                style={{ textDecoration: "none" }}
+              >
                 Forgot Password
               </Link>
             </Box>
