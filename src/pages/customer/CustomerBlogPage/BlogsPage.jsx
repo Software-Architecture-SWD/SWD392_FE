@@ -7,7 +7,7 @@ import {
   CardMedia,
   CardContent,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../../../components/common/SearchBar";
 import Grid from "@mui/material/Grid2";
 import { Link } from "react-router-dom";
@@ -18,6 +18,10 @@ export default function BlogsPage() {
   const handleTabChange = (event, newValue) => {
     setTab(newValue);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const blogsData = [
     {

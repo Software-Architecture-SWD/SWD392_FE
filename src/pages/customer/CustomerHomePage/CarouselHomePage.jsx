@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import Grid from "@mui/material/Grid2";
 import { Typewriter } from "react-simple-typewriter";
 import ArrowForwardTwoToneIcon from "@mui/icons-material/ArrowForwardTwoTone";
 import { useNavigate } from "react-router-dom";
 
 export default function CarouselHomePage() {
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem("accessToken")
+  );
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setAccessToken(localStorage.getItem("accessToken"));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
   return (
-    <Box
-      sx={{
-        margin: "8rem 0rem 2rem 0rem",
-      }}
-    >
+    <Box sx={{ margin: "8rem 0rem 2rem 0rem" }}>
       <Box
         sx={{
           width: "100%",
@@ -54,29 +62,31 @@ export default function CarouselHomePage() {
           </span>
         </Typography>
 
-        <Button
-          variant="contained"
-          onClick={() => navigate("/login")}
-          endIcon={<ArrowForwardTwoToneIcon />}
-          sx={{
-            textTransform: "none",
-            fontFamily: "Lora, serif",
-            fontWeight: 600,
-            fontSize: "1rem",
-            px: 3,
-            py: 1,
-            mb: "2rem",
-            borderRadius: "30px",
-            backgroundColor: "black",
-            color: "white",
-            transition: "background 0.5s ease-out",
-            ":hover": {
-              background: "linear-gradient(45deg, #FF8E53, #FF6B6B)",
-            },
-          }}
-        >
-          Get Started
-        </Button>
+        {!accessToken && (
+          <Button
+            variant="contained"
+            onClick={() => navigate("/login")}
+            endIcon={<ArrowForwardTwoToneIcon />}
+            sx={{
+              textTransform: "none",
+              fontFamily: "Lora, serif",
+              fontWeight: 600,
+              fontSize: "1rem",
+              px: 3,
+              py: 1,
+              mb: "2rem",
+              borderRadius: "30px",
+              backgroundColor: "black",
+              color: "white",
+              transition: "background 0.5s ease-out",
+              ":hover": {
+                background: "linear-gradient(45deg, #FF8E53, #FF6B6B)",
+              },
+            }}
+          >
+            Get Started
+          </Button>
+        )}
       </Box>
     </Box>
   );

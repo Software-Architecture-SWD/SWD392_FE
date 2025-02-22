@@ -17,7 +17,9 @@ import AdbIcon from "@mui/icons-material/Adb";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
-import { useSelector } from "react-redux";
+import { clearToken } from "../../features/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const pages = [
   { name: "Home", path: "/" },
@@ -31,9 +33,9 @@ function CustomerHeader({ appBarRef }) {
   const location = useLocation(); // Get current route
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  console.log(isAuthenticated)
+  const accessToken = localStorage.getItem("accessToken");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -48,6 +50,30 @@ function CustomerHeader({ appBarRef }) {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    if (dispatch(clearToken())) {
+      toast.success("Logout Successful!");
+    } else {
+      toast.error("Logout Failed!");
+    }
+  };
+
+  const handleMenuClick = (setting) => {
+    switch (setting) {
+      case "Profile":
+        navigate("/profile");
+        break;
+
+      case "Logout":
+        handleLogout();
+        break;
+
+      default:
+        break;
+      }
+      handleCloseUserMenu();
   };
 
   return (
@@ -200,7 +226,7 @@ function CustomerHeader({ appBarRef }) {
 
           {/* User Menu */}
           <Box>
-            {isAuthenticated ? (
+            {accessToken ? (
               // If logged in, show the User Menu
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
@@ -228,7 +254,10 @@ function CustomerHeader({ appBarRef }) {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem
+                      key={setting}
+                      onClick={() => handleMenuClick(setting)}
+                    >
                       <Typography
                         textAlign="center"
                         sx={{ fontFamily: "Lora" }}
