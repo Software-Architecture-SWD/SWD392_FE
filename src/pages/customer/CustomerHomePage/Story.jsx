@@ -1,145 +1,210 @@
-import { Box, Container, Typography, Button } from "@mui/material";
 import React from "react";
-import Grid from "@mui/material/Grid2";
+import {
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+  Button,
+  Divider,
+  Box,
+} from "@mui/material";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useNavigate } from "react-router-dom";
 
-export default function Story() {
+const Story = () => {
   const navigate = useNavigate();
-  return (
-    <Box
-      sx={{ backgroundColor: "rgba(0, 0, 0, 0.9)", width: "100%", mb: "5rem" }}
-    >
-      <Grid
-        container
-        spacing={3}
-        sx={{ display: "flex", alignItems: "stretch" }}
-      >
-        {/* Left Image Section */}
-        <Grid size={4} sx={{ display: "flex" }}>
-          <Box sx={{ width: "100%", height: "100%" }}>
-            <img
-              src="src/assets/images/HomeStory/story1.jpg"
-              alt="Beauty Story"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          </Box>
-        </Grid>
+  const stories = [
+    {
+      title: "Exploring the Mountains",
+      description: "A thrilling journey through the rocky landscapes.",
+      image: "src/assets/images/HomeStory/story2.jpg",
+    },
+    {
+      title: "City Lights",
+      description: "The beauty of urban life at night.",
+      image: "src/assets/images/HomeStory/story1.jpg",
+    },
+    {
+      title: "Forest Trails",
+      description: "Discover the hidden paths in the woods.",
+      image: "src/assets/images/HomeStory/story3.jpg",
+    },
+    {
+      title: "Coastal Escape",
+      description: "Relax by the sea with stunning views.",
+      image: "src/assets/images/HomeStory/story4.jpg",
+    },
+    {
+      title: "Desert Adventures",
+      description: "Uncover the secrets of the sands.",
+      image: "src/assets/images/HomeStory/story5.jpg",
+    },
+    {
+      title: "Winter Wonderland",
+      description: "Snow-covered landscapes await.",
+      image: "src/assets/images/HomeStory/story5.jpg",
+    },
+  ];
 
-        {/* Right Text Section */}
-        <Grid
-          size={8}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <Container maxWidth="lg" sx={{ color: "white" }}>
-            <Box textAlign="left">
-              <Typography
-                variant="h3"
-                component="h1"
-                gutterBottom
-                sx={{
-                  fontFamily: "Lora, serif",
-                  fontSize: "3rem",
-                  color: "var(--primary-color)",
-                  textShadow: "0 0 5px rgb(255, 4, 238)",
-                  mb: "1rem",
-                }}
-              >
-                BeautyProduct – Your Destination for Radiant Beauty
-              </Typography>
-              <Typography
-                variant="body1"
-                paragraph
-                sx={{
-                  fontFamily: "Lora, serif",
-                  fontSize: "1.5rem",
-                  mb: "2rem",
-                }}
-              >
-                Welcome to <strong>BeautyProduct</strong>, where beauty meets
-                confidence! We bring you a curated selection of high-quality
-                skincare, makeup, and self-care essentials to enhance your
-                natural glow.
-              </Typography>
-              <Typography
-                variant="body1"
-                paragraph
-                sx={{
-                  fontFamily: "Lora, serif",
-                  fontSize: "1.5rem",
-                  mb: "2rem",
-                }}
-              >
-                At <strong>BeautyProduct</strong>, we believe that beauty is for
-                everyone. Whether you're looking for nourishing skincare, bold
-                makeup looks, or expert beauty tips, our carefully selected
-                products cater to all skin types and styles.
-              </Typography>
-              <Typography
-                variant="body1"
-                paragraph
-                sx={{
-                  fontFamily: "Lora, serif",
-                  fontSize: "1.5rem",
-                  mb: "1rem",
-                }}
-              >
-                Explore the latest trends, discover must-have beauty essentials,
-                and embrace the glow you deserve. Because at{" "}
-                <strong>BeautyProduct</strong>, your beauty is our priority!
-              </Typography>
-              <Typography
-                variant="h5"
-                fontWeight="bold"
-                textAlign="center"
-                sx={{
-                  fontFamily: "Lora, serif",
-                  fontSize: "2rem",
-                  textShadow: "0 0 2px rgb(255, 4, 238)",
-                  color: "var(--primary-color)",
-                }}
-              >
-                ✨ Glow Every Day with BeautyProduct! ✨
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "100%",
-                  mt: "2rem",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    navigate("/blogs");
-                  }}
-                  sx={{
-                    background: "linear-gradient(45deg,#ff6b6b, #FF8E53)",
-                    color: "white",
-                    fontSize: "1.2rem",
-                    fontFamily: "Lora, serif",
-                    padding: "10px 20px",
-                    textTransform: "uppercase",
-                    fontWeight: "bold",
-                    boxShadow: "0px 4px 10px rgba(255, 107, 107, 0.4)",
-                    transition: "all 0.3s ease-in-out",
-                    "&:hover": {
-                      background: "linear-gradient(45deg, #FF8E53, #FF6B6B)",
-                      boxShadow: "0px 6px 14px rgba(255, 107, 107, 0.6)",
-                    },
-                  }}
+  return (
+    <Container maxWidth="100%" sx={{ py: 4, backgroundColor: "#f9f9f9" }}>
+      <Typography
+        variant="h2"
+        gutterBottom
+        textAlign="center"
+        fontFamily="Lora"
+        fontWeight="600"
+      >
+        Featured Story
+      </Typography>
+      <Card
+        sx={{
+          mb: 4,
+          borderRadius: 4,
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+          transition: "transform 0.3s, box-shadow 0.3s",
+          ":hover": {
+            transform: "scale(1.02)",
+            boxShadow: "0 6px 30px rgba(0, 0, 0, 0.2)",
+          },
+        }}
+      >
+        <CardMedia
+          component="img"
+          height="400"
+          image="src/assets/images/HomeStory/story2.jpg"
+          alt="Featured Story"
+          sx={{ borderRadius: "4px 4px 0 0" }}
+        />
+        <CardContent>
+          <Typography variant="h5" fontWeight="bold">
+            Adventure Awaits
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ mb: 2, lineHeight: 1.6 }}
+          >
+            Embark on a journey to explore the unknown.
+          </Typography>
+          <Button
+            onClick={() => navigate("/blogs")}
+            sx={{
+              backgroundColor: "black",
+              color: "white",
+
+              borderRadius: 2,
+              px: 3,
+              py: 1,
+              boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              transition: "transform 0.3s ease-in, background 0.3s ease-in",
+              ":active": {
+                transform: "scale(0.95)",
+              },
+              ":hover": {
+                background: "linear-gradient(45deg, #FF8E53, #FF6B6B)",
+              },
+            }}
+          >
+            Read More
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Divider sx={{ my: 4 }} />
+      <Typography
+        variant="h4"
+        gutterBottom
+        textAlign="center"
+        fontFamily="Lora"
+        fontWeight="500"
+      >
+        More Stories
+      </Typography>
+
+      <Carousel
+        showThumbs={false}
+        showStatus={false}
+        infiniteLoop
+        emulateTouch
+        centerMode
+        centerSlidePercentage={35}
+        showArrows
+        autoPlay
+        interval={3000}
+        stopOnHover
+        swipeable
+        renderIndicator={(onClickHandler, isSelected, index, label) => (
+          <li
+            style={{
+              background: isSelected ? "#FF6B6B" : "#ddd",
+              width: 10,
+              height: 10,
+              borderRadius: "50%",
+              display: "inline-block",
+              margin: "0 5px",
+              cursor: "pointer",
+            }}
+            onClick={onClickHandler}
+            onKeyDown={onClickHandler}
+            role="button"
+            tabIndex={0}
+            aria-label={`${label} ${index + 1}`}
+          />
+        )}
+      >
+        {stories.map((story, index) => (
+          <Box
+            key={index}
+            sx={{
+              padding: "0 10px",
+              transition: "transform 0.3s",
+              ":hover": {
+                transform: "scale(1.05)",
+              },
+            }}
+          >
+            <Card
+              sx={{
+                borderRadius: 4,
+                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+                transition: "all 0.3s ease",
+                ":hover": {
+                  boxShadow: "0 6px 30px rgba(0, 0, 0, 0.2)",
+                },
+              }}
+            >
+              <CardMedia
+                component="img"
+                height="200"
+                image={story.image}
+                alt={story.title}
+                sx={{ borderRadius: "4px 4px 0 0" }}
+              />
+              <CardContent>
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  sx={{ mb: 1, textAlign: "center" }}
                 >
-                  READ MORE
-                </Button>
-              </Box>
-            </Box>
-          </Container>
-        </Grid>
-      </Grid>
-    </Box>
+                  {story.title}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ textAlign: "center", lineHeight: 1.5 }}
+                >
+                  {story.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Box>
+        ))}
+      </Carousel>
+    </Container>
   );
-}
+};
+
+export default Story;

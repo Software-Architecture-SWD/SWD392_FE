@@ -19,8 +19,9 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../features/authSlice";
+import { loginUser, loginWithGoogle } from "../../features/authSlice";
 import { sendOtp } from "../../features/authSlice";
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -44,7 +45,6 @@ export default function LoginPage() {
     try {
       const res = await dispatch(loginUser(formData)).unwrap();
 
-      // Store accessToken & refreshToken after login
       localStorage.setItem("accessToken", res.accessToken);
       localStorage.setItem("refreshToken", res.refreshToken);
 
@@ -57,6 +57,37 @@ export default function LoginPage() {
       navigate("/");
     } catch (err) {
       toast.error(err?.message || "Login Failed! Check your credentials.");
+    }
+  };
+
+  const handleGoogleLogin = async (response) => {
+    console.log("Google Token Response:", response);
+
+    const userData = { token: response.credential };
+    try {
+      console.log("Sending userData:", userData);
+      const res = await dispatch(loginWithGoogle(userData)).unwrap();
+      if (!res) {
+        toast.error("Login with Google failed! Try Again");
+        return;
+      }
+
+      if (res.hasPassword) {
+        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem("refreshToken", res.refreshToken);
+        toast.success("Login Successful!");
+        navigate("/");
+      } else {
+        toast.info("Please Set Password for Google Account !");
+        navigate("/set-google-password", {
+          state: {
+            accessToken: res.accessToken,
+            refreshToken: res.refreshToken,
+          },
+        });
+      }
+    } catch (error) {
+      toast.error(error?.message || "Login with Google failed!");
     }
   };
 
@@ -217,6 +248,18 @@ export default function LoginPage() {
             >
               Log In
             </Button>
+
+            <Typography sx={{ margin: "0.5rem auto" }}>Or</Typography>
+
+            <Box
+              sx={{ width: "100%", display: "flex", justifyContent: "center" }}
+            >
+              <GoogleLogin
+                onSuccess={handleGoogleLogin}
+                onError={() => toast.error("Google login failed!")}
+                useOneTap
+              />
+            </Box>
 
             <Typography
               variant="body2"

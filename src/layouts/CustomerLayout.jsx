@@ -15,7 +15,7 @@ export default function CustomerLayout() {
 
   return (
     <>
-      <div className="header" style={{ marginBottom: `${appBarHeight + 32}px` }}>
+      <div className="header" style={{ marginBottom: `${appBarHeight}px` }}>
         <CustomerHeader appBarRef={appBarRef} /> 
       </div>
       <div className="outlet">

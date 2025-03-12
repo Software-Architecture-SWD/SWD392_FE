@@ -72,8 +72,8 @@ function CustomerHeader({ appBarRef }) {
 
       default:
         break;
-      }
-      handleCloseUserMenu();
+    }
+    handleCloseUserMenu();
   };
 
   return (
@@ -159,6 +159,24 @@ function CustomerHeader({ appBarRef }) {
               ))}
             </Menu>
           </Box>
+          <Typography
+            variant="h6"
+            noWrap
+            component={Link}
+            to="/"
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              fontFamily: "Lora",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "var(--primary-text-color)",
+              textDecoration: "none",
+            }}
+          >
+            Beauty{" "}
+            <span style={{ color: "var(--primary-color)" }}>Product</span>
+          </Typography>
 
           {/* Desktop Menu */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -169,6 +187,7 @@ function CustomerHeader({ appBarRef }) {
                 to={page.path}
                 onClick={handleCloseNavMenu}
                 sx={{
+                  borderRadius: "0",
                   textAlign: "center",
                   my: 2,
                   color:
@@ -193,7 +212,7 @@ function CustomerHeader({ appBarRef }) {
           </Box>
 
           {/* Notification & Shopping Cart */}
-          <Box sx={{ flexGrow: 0, marginRight: "2rem", display: "flex" }}>
+          <Box sx={{ flexGrow: 0, marginRight: "1rem", display: "flex" }}>
             <Button sx={{ color: "white" }}>
               <Badge
                 badgeContent={100}

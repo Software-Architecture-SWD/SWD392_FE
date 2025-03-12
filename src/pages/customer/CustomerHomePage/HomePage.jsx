@@ -4,6 +4,7 @@ import CarouselHomePage from "./CarouselHomePage";
 import NewArrival from "./NewArrival";
 import SkincareRoutine from "./SkincareRoutine";
 import Story from "./Story";
+import FloatingMoveToTopBtn from "../../../components/common/FloatingMoveToTopBtn";
 
 export default function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default function HomePage() {
       <NewArrival />
       <SkincareRoutine />
       <Story />
+      <FloatingMoveToTopBtn />
     </Box>
   );
 }

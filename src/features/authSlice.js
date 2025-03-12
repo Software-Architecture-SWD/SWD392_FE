@@ -1,11 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosClient from "../axiosClient";
 import {
+  API_FORGOT_PASSWORD,
+  API_POST_GOOGLE_PASSWORD,
   API_POST_LOGIN,
+  API_POST_LOGIN_GOOGLE,
   API_POST_REGISTER,
+  API_RESET_PASSWORD,
   API_SEND_OTP,
   API_VERIFY_OTP,
 } from "../constants";
+import { googleLogout } from "@react-oauth/google";
 
 export const registerUser = createAsyncThunk(
   "auth/register",
@@ -32,9 +37,38 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const loginWithGoogle = createAsyncThunk(
+  "auth/login-google",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axiosClient.post(API_POST_LOGIN_GOOGLE, userData);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+export const setGooglePassword = createAsyncThunk(
+  "auth/google-setPassword",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axiosClient.post(
+        API_POST_GOOGLE_PASSWORD,
+        userData
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data);
+    }
+  }
+);
+
 export const sendOtp = createAsyncThunk("auth/sendOtp", async (_, thunkAPI) => {
   try {
-    const response = await axiosClient.get(API_SEND_OTP);
+    const response = await axiosClient.post(API_SEND_OTP);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data);
@@ -53,6 +87,30 @@ export const verifyOtp = createAsyncThunk(
   }
 );
 
+export const forgotPassword = createAsyncThunk(
+  "auth/forgotPassword",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axiosClient.post(API_FORGOT_PASSWORD, userData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axiosClient.post(API_RESET_PASSWORD, userData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -60,10 +118,12 @@ const authSlice = createSlice({
     isAuthenticated: false,
     loading: false,
     error: null,
+    forgotPasswordSuccess: false,
   },
   reducers: {
     resetMessage: (state) => {
       state.error = null;
+      state.forgotPasswordSuccess = false;
     },
     clearToken: (state) => {
       state.user = null;
@@ -72,6 +132,7 @@ const authSlice = createSlice({
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       window.dispatchEvent(new Event("storage"));
+      window.location.reload();
     },
   },
   extraReducers: (builder) => {
@@ -95,9 +156,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-
         const { accessToken, refreshToken, user } = action.payload;
-
         if (accessToken && refreshToken && user?.emailConfirmed) {
           state.user = user;
           state.isAuthenticated = true;
@@ -111,6 +170,42 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || "Login failed!";
+      })
+      // ✅ loginWithGoogle cases
+      .addCase(loginWithGoogle.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginWithGoogle.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log("authSlice", action.payload);
+        const { accessToken, refreshToken, user } = action.payload;
+        if (accessToken && refreshToken) {
+          state.user = user;
+          state.isAuthenticated = true;
+        } else {
+          state.isAuthenticated = false;
+          state.error = "Login with Google failed!";
+        }
+      })
+      .addCase(loginWithGoogle.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Login with Google failed!";
+      })
+      // ✅ setGooglePassword cases
+      .addCase(setGooglePassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(setGooglePassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.isAuthenticated = true;
+      })
+      .addCase(setGooglePassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          action.payload?.message || "Setting Google password failed!";
       })
       .addCase(sendOtp.pending, (state) => {
         state.loading = true;
@@ -132,6 +227,30 @@ const authSlice = createSlice({
       .addCase(verifyOtp.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || "Invalid OTP!";
+      })
+      .addCase(forgotPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.forgotPasswordSuccess = false;
+      })
+      .addCase(forgotPassword.fulfilled, (state) => {
+        state.loading = false;
+        state.forgotPasswordSuccess = true;
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Forgot password failed!";
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Reset password failed!";
       });
   },
 });

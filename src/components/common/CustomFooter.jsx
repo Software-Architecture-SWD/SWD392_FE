@@ -12,7 +12,6 @@ export default function CustomFooter() {
         backgroundColor: "black",
         color: "white",
         py: 3,
-        mt: 4,
         textAlign: "center",
       }}
     >

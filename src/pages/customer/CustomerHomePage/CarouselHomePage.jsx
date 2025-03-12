@@ -23,70 +23,94 @@ export default function CarouselHomePage() {
   }, []);
 
   return (
-    <Box sx={{ margin: "8rem 0rem 2rem 0rem" }}>
+    <Box sx={{ margin: "0rem 0rem 2rem 0rem" }}>
       <Box
         sx={{
-          width: "100%",
-          height: "100%",
+          position: "relative",
+          height: "35rem",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           background: "url(src/assets/images/HomeSlider/home_banner.jpg)",
-          backgroundPosition: "50% 57%",
+          backgroundPosition: "50% 38%",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <Typography
+        {/* Overlay Layer */}
+        <Box
           sx={{
-            color: "white",
-            fontFamily: "Lora",
-            fontSize: { xs: "3vw", sm: "2.5vw", md: "2rem", lg: "2.5rem" },
-            textAlign: "center",
-            fontStyle: "italic",
-            letterSpacing: "0.2rem",
-            mb: "1rem",
-            mt: "2rem",
-            cursor: "default",
+            position: "absolute",
+            backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent overlay
+            height: "100%",
+            width: "40%",
+            top: 0,
+            left: 0,
+          }}
+        />
+
+        {/* Text Container */}
+        <Box
+          sx={{
+            position: "absolute",
+            width: "40%",
+            left: "0%", // Adjust position
+            zIndex: 2, // Ensures it's above the overlay
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          "True beauty comes from within, but a little{" "}
-          <span style={{ color: "var(--primary-color)", fontStyle: "italic" }}>
-            <Typewriter
-              words={['lipstick never hurts."', 'confidence never hurts."']}
-              loop
-              typeSpeed={200}
-              deleteSpeed={100}
-            />
-          </span>
-        </Typography>
-
-        {!accessToken && (
-          <Button
-            variant="contained"
-            onClick={() => navigate("/login")}
-            endIcon={<ArrowForwardTwoToneIcon />}
+          <Typography
             sx={{
-              textTransform: "none",
-              fontFamily: "Lora, serif",
-              fontWeight: 600,
-              fontSize: "1rem",
-              px: 3,
-              py: 1,
-              mb: "2rem",
-              borderRadius: "30px",
-              backgroundColor: "black",
+              width: "100%",
               color: "white",
-              transition: "background 0.5s ease-out",
-              ":hover": {
-                background: "linear-gradient(45deg, #FF8E53, #FF6B6B)",
-              },
+              fontFamily: "Lora",
+              fontSize: { xs: "3vw", sm: "2.5vw", md: "2rem", lg: "2.5rem" },
+              textAlign: "center",
+              fontStyle: "italic",
+              letterSpacing: "0.2rem",
+              mb: "1rem",
+              mt: "2rem",
+              cursor: "default",
             }}
           >
-            Get Started
-          </Button>
-        )}
+            "True beauty comes from within, but a little{" "}
+            <span
+              style={{ color: "var(--primary-color)", fontStyle: "italic" }}
+            >
+              lipstick never hurts."
+            </span>
+          </Typography>
+
+          {!accessToken && (
+            <Button
+              variant="contained"
+              onClick={() => navigate("/login")}
+              endIcon={<ArrowForwardTwoToneIcon />}
+              sx={{
+                textTransform: "none",
+                fontFamily: "Lora, serif",
+                fontWeight: 600,
+                fontSize: "1rem",
+                width: "20rem",
+                borderRadius: "0",
+                px: 3,
+                py: 1,
+                backgroundColor: "white",
+                color: "black",
+                transition: "background 0.5s ease-out",
+                ":hover": {
+                  background: "linear-gradient(45deg, #FF8E53, #FF6B6B)",
+                },
+              }}
+            >
+              Get Started
+            </Button>
+          )}
+        </Box>
       </Box>
     </Box>
   );
