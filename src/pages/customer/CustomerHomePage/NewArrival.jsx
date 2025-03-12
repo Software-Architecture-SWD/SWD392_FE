@@ -11,11 +11,11 @@ export default function NewArrival() {
   return (
     <Box sx={{ backgroundColor: "white", mb: "5rem" }}>
       <Typography
+        variant="h2"
         sx={{
           textAlign: "center",
           fontFamily: "'Lora', cursive",
-          fontSize: "4rem",
-          fontWeight: "500",
+          fontWeight: "600",
           color: "var(--black-color)",
           mb: "1rem",
         }}

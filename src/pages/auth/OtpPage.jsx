@@ -12,7 +12,7 @@ export default function OtpPage() {
   const { loading } = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [countdown, setCountdown] = useState(600); 
+  const [countdown, setCountdown] = useState(600);
   const dispatch = useDispatch();
   const inputRefs = useRef([]);
   const navigate = useNavigate();
@@ -63,6 +63,7 @@ export default function OtpPage() {
       await dispatch(verifyOtp({ email, otp: otpValue })).unwrap();
       toast.success("OTP Verified Successfully");
       navigate("/login");
+      dispatch(clearToken());
     } catch (error) {
       toast.error(error?.message || "OTP Verification Failed");
     }

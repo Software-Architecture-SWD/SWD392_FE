@@ -244,11 +244,11 @@ export default function SkincareRoutine() {
 
         <Box>
           <Typography
+            variant="h2"
             sx={{
               textAlign: "center",
               fontFamily: "Lora",
-              fontSize: "3.2rem",
-              fontWeight: "400",
+              fontWeight: "600",
               letterSpacing: "0.2rem",
               mb: "4rem",
             }}
@@ -281,10 +281,10 @@ export default function SkincareRoutine() {
                 }}
               >
                 <Typography
+                  variant="h4"
                   sx={{
                     fontFamily: "Lora",
-                    fontSize: "2rem",
-                    fontWeight: "bold",
+                    fontWeight: "500",
                     textAlign: "center",
                     flexGrow: 1,
                     color: darkMode ? "white" : "black",
