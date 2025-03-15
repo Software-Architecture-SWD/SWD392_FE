@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom"; // Import useLocation
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -21,21 +21,33 @@ import { clearToken } from "../../features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-const pages = [
+// Always visible pages
+const publicPages = [
   { name: "Home", path: "/" },
   { name: "Products", path: "/products" },
   { name: "Blog", path: "/blogs" },
-  { name: "About Us", path: "/about-us" },
+  { name: "Skin Quiz", path: "/skin-quiz" },
 ];
+
+// Pages only visible when logged in
+const privatePages = [{ name: "Booking", path: "/booking" }];
+
+const aboutUsPage = [{ name: "About Us", path: "/about-us" }];
+
 const settings = ["Profile", "Logout"];
 
 function CustomerHeader({ appBarRef }) {
-  const location = useLocation(); // Get current route
+  const location = useLocation();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const accessToken = localStorage.getItem("accessToken");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // Determine which pages to show based on login status
+  const displayPages = accessToken
+    ? [...publicPages, ...privatePages, ...aboutUsPage]
+    : [...publicPages, ...aboutUsPage];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -53,11 +65,9 @@ function CustomerHeader({ appBarRef }) {
   };
 
   const handleLogout = () => {
-    if (dispatch(clearToken())) {
-      toast.success("Logout Successful!");
-    } else {
-      toast.error("Logout Failed!");
-    }
+    dispatch(clearToken());
+    toast.success("Logout Successful!");
+    navigate("/");
   };
 
   const handleMenuClick = (setting) => {
@@ -136,7 +146,7 @@ function CustomerHeader({ appBarRef }) {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {pages.map((page) => (
+              {displayPages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   <Typography
                     component={Link}
@@ -180,13 +190,14 @@ function CustomerHeader({ appBarRef }) {
 
           {/* Desktop Menu */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {displayPages.map((page) => (
               <Button
                 key={page.name}
                 component={Link}
                 to={page.path}
                 onClick={handleCloseNavMenu}
                 sx={{
+                  position: "relative",
                   borderRadius: "0",
                   textAlign: "center",
                   my: 2,
@@ -207,6 +218,21 @@ function CustomerHeader({ appBarRef }) {
                 }}
               >
                 {page.name}
+                {page.name === "Booking" && (
+                  <Box
+                    component="img"
+                    src="/src/assets/images/common/star.png"
+                    alt="star"
+                    sx={{
+                      width: 70,
+                      height: 70,
+                      position: "absolute",
+                      top: "65%",
+                      right: "50%",
+                      transform: "translateX(50%)",
+                    }}
+                  />
+                )}
               </Button>
             ))}
           </Box>

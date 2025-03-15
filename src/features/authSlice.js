@@ -132,7 +132,6 @@ const authSlice = createSlice({
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       window.dispatchEvent(new Event("storage"));
-      window.location.reload();
     },
   },
   extraReducers: (builder) => {

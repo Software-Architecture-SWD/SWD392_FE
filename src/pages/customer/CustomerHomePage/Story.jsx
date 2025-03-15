@@ -94,7 +94,6 @@ const Story = () => {
             sx={{
               backgroundColor: "black",
               color: "white",
-
               borderRadius: 2,
               px: 3,
               py: 1,

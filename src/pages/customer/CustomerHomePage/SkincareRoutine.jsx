@@ -3,8 +3,10 @@ import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useNavigate } from "react-router-dom";
 
 export default function SkincareRoutine() {
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const steps = [
     {
@@ -218,10 +220,11 @@ export default function SkincareRoutine() {
               </Typography>
             </Typography>
             <Button
+              onClick={() => navigate("/skin-quiz")}
               sx={{
-                backgroundColor: "var(--white-color)",
-                color: "var(--black-color)",
-                borderRadius: "0",
+                background: "var(--black-color)",
+                color: "var(--white-color)",
+                borderRadius: 2,
                 fontWeight: "bold",
                 fontSize: {
                   lg: "1rem",
@@ -231,9 +234,9 @@ export default function SkincareRoutine() {
                 },
                 padding: "0.8rem",
                 mt: "2rem",
+                transition: "all 0.4s ease-out",
                 ":hover": {
-                  backgroundColor: "var(--black-color)",
-                  color: "var(--white-color)",
+                  background: "linear-gradient(45deg, #FF8E53, #FF6B6B)",
                 },
               }}
             >
@@ -412,7 +415,7 @@ export default function SkincareRoutine() {
                         sx={{
                           fontSize: "1rem",
                           marginTop: "0.5rem",
-                          color: "gray", // Adjust color for description text
+                          color: "gray",
                           maxWidth: "250px",
                           margin: "0 auto",
                         }}
