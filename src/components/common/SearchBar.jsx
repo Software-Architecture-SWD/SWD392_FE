@@ -79,6 +79,8 @@ export default function SearchBar() {
             <Button
               variant="contained"
               sx={{
+                borderRadius: 2,
+
                 backgroundColor: "black",
                 "&:hover": {
                   background: "linear-gradient(135deg, #ff8e53, #ff6b6b)",

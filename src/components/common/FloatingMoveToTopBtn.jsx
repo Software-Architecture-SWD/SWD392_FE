@@ -8,7 +8,7 @@ const FloatingMoveToTopBtn = () => {
   // Show button when user scrolls down
   useEffect(() => {
     const toggleVisibility = () => {
-      setIsVisible(window.scrollY > 300);
+      setIsVisible(window.scrollY > 100);
     };
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);

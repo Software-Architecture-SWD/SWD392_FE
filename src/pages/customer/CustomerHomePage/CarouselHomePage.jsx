@@ -96,14 +96,17 @@ export default function CarouselHomePage() {
                 fontWeight: 600,
                 fontSize: "1rem",
                 width: "20rem",
-                borderRadius: "0",
+                borderRadius: 2,
                 px: 3,
                 py: 1,
-                backgroundColor: "white",
+                backgroundColor: "rgb(255, 255, 255)",
+                boxShadow: "0 0 10px 3px var(--primary-color)",
                 color: "black",
-                transition: "background 0.5s ease-out",
+                transition: "all 0.4s ease-out",
                 ":hover": {
                   background: "linear-gradient(45deg, #FF8E53, #FF6B6B)",
+                  boxShadow: "0 0 10px 5px rgb(179, 175, 175)",
+                  color: "white",
                 },
               }}
             >

@@ -13,7 +13,6 @@ export default function HomePage() {
       <NewArrival />
       <SkincareRoutine />
       <Story />
-      <FloatingMoveToTopBtn />
     </Box>
   );
 }
