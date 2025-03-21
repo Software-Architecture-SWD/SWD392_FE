@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axiosClient from "../axiosClient";
+import axiosClient from "../utils/axiosClient";
 import {
   API_FORGOT_PASSWORD,
   API_POST_GOOGLE_PASSWORD,
