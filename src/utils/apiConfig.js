@@ -16,6 +16,10 @@ export const ENDPOINTS = {
     RESTORE_USER: (username) => `/auth/restore/${username}`,
     USERS: '/auth/users',
     USER: (id) => `/auth/users/${id}`,
+    LOGIN_GOOGLE: '/auth/google/login',
+    GOOGLE_PASSWORD: '/auth/google/set-password',
+    FORGOT_PASSWORD: '/auth/password/forgot',
+    RESET_PASSWORD: '/auth/password/reset',
   },
   
   // Product endpoints
@@ -56,8 +60,8 @@ export const ENDPOINTS = {
 
   // Email endpoints
   EMAIL: {
-    SEND_OTP: '/email/send-otp',
-    VERIFY_OTP: '/email/verify-otp',
+    SEND_OTP: '/email/otp/send',
+    VERIFY_OTP: '/email/otp/verify',
   }
 };
 

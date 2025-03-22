@@ -1,22 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosClient from "../utils/axiosClient";
-import {
-  API_FORGOT_PASSWORD,
-  API_POST_GOOGLE_PASSWORD,
-  API_POST_LOGIN,
-  API_POST_LOGIN_GOOGLE,
-  API_POST_REGISTER,
-  API_RESET_PASSWORD,
-  API_SEND_OTP,
-  API_VERIFY_OTP,
-} from "../constants";
+import { ENDPOINTS, handleApiError } from "../utils/apiConfig";
 import { googleLogout } from "@react-oauth/google";
 
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (userData, thunkAPI) => {
     try {
-      const response = await axiosClient.post(API_POST_REGISTER, userData);
+      const response = await axiosClient.post(ENDPOINTS.AUTH.REGISTER, userData);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data);
@@ -28,7 +19,7 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async (userData, thunkAPI) => {
     try {
-      const response = await axiosClient.post(API_POST_LOGIN, userData);
+      const response = await axiosClient.post(ENDPOINTS.AUTH.LOGIN, userData);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -41,7 +32,7 @@ export const loginWithGoogle = createAsyncThunk(
   "auth/login-google",
   async (userData, thunkAPI) => {
     try {
-      const response = await axiosClient.post(API_POST_LOGIN_GOOGLE, userData);
+      const response = await axiosClient.post(ENDPOINTS.AUTH.LOGIN_GOOGLE, userData);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -55,7 +46,7 @@ export const setGooglePassword = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
       const response = await axiosClient.post(
-        API_POST_GOOGLE_PASSWORD,
+        ENDPOINTS.AUTH.GOOGLE_PASSWORD,
         userData
       );
       console.log(response.data);
@@ -68,7 +59,7 @@ export const setGooglePassword = createAsyncThunk(
 
 export const sendOtp = createAsyncThunk("auth/sendOtp", async (_, thunkAPI) => {
   try {
-    const response = await axiosClient.post(API_SEND_OTP);
+    const response = await axiosClient.post(ENDPOINTS.EMAIL.SEND_OTP);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data);
@@ -79,7 +70,7 @@ export const verifyOtp = createAsyncThunk(
   "auth/verifyOtp",
   async (userData, thunkAPI) => {
     try {
-      const response = await axiosClient.post(API_VERIFY_OTP, userData);
+      const response = await axiosClient.post(ENDPOINTS.EMAIL.VERIFY_OTP, userData);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data);
@@ -91,7 +82,7 @@ export const forgotPassword = createAsyncThunk(
   "auth/forgotPassword",
   async (userData, thunkAPI) => {
     try {
-      const response = await axiosClient.post(API_FORGOT_PASSWORD, userData);
+      const response = await axiosClient.post(ENDPOINTS.AUTH.FORGOT_PASSWORD, userData);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data);
@@ -103,7 +94,7 @@ export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
   async (userData, thunkAPI) => {
     try {
-      const response = await axiosClient.post(API_RESET_PASSWORD, userData);
+      const response = await axiosClient.post(ENDPOINTS.AUTH.RESET_PASSWORD, userData);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data);
