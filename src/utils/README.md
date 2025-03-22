@@ -84,6 +84,6 @@ try {
 
 ## Lưu ý
 
-- Đảm bảo rằng `BASE_URL` trong constants.js đã được cấu hình đúng
+- Đảm bảo rằng `BASE_URL` trong apiConfig.js đã được cấu hình đúng
 - Khi token hết hạn, axiosClient sẽ tự động làm mới và thử lại yêu cầu
 - Nếu refresh token cũng hết hạn, người dùng sẽ được đưa đến trang đăng nhập 
