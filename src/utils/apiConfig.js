@@ -3,6 +3,9 @@
  * Tất cả API endpoint sẽ được định nghĩa ở đây để đảm bảo tính nhất quán
  */
 
+// Base URL for API
+export const BASE_URL = "https://localhost:7014";
+
 // Base endpoints
 export const ENDPOINTS = {
   // Auth endpoints

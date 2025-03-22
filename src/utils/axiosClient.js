@@ -10,8 +10,7 @@
 
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { ENDPOINTS } from './apiConfig';
-import { BASE_URL } from "../constants";
+import { ENDPOINTS, BASE_URL } from './apiConfig';
 
 /**
  * Khởi tạo Axios client với cấu hình mặc định
