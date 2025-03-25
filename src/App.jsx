@@ -14,8 +14,8 @@ import SetGooglePasswordPage from "./pages/auth/SetGooglePasswordPage";
 
 /* Customer */
 import CustomerLayout from "./layouts/CustomerLayout";
-import ProductsPage from "./pages/customer/product/pages/ProductsPage";
-import ProductDetailPage from "./pages/customer/product/pages/ProductDetailPage";
+import ProductsPage from "./pages/product/list/ProductsPage";
+import ProductDetailPage from "./pages/product/detail/ProductDetailPage";
 import BlogsPage from "./pages/customer/CustomerBlogPage/BlogsPage";
 import AboutUsPage from "./pages/customer/AboutUsPage";
 import HomePage from "./pages/customer/CustomerHomePage/HomePage";

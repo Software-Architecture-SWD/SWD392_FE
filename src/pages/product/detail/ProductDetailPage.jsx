@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Button, Badge } from "react-bootstrap";
-import axiosClient from "../../../../axiosClient";
-import "./ProductDetailPage.css";
+import axiosClient from "../../../axiosClient";
+import "../../../styles/pages/product/ProductDetailPage.css";
 
 const ProductDetailPage = () => {
   const { id } = useParams();

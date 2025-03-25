@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Pagination, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
-import axiosClient from '../../../../axiosClient';
-import ProductCard from '../components/ProductCard';
-import ProductFilter from '../components/ProductFilter';
-import './ProductsPage.css';
+import axiosClient from '../../../axiosClient';
+import ProductCard from '../../../components/product/ProductCard';
+import ProductFilter from '../../../components/product/ProductFilter';
+import '../../../styles/pages/product/ProductsPage.css';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
