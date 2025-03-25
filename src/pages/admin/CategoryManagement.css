@@ -1,0 +1,109 @@
+.category-management {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.category-management h2 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.category-management .table {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.category-management .table thead th {
+  background-color: #f1f2f6;
+  color: #2c3e50;
+  font-weight: 600;
+  border-bottom: 2px solid #dfe4ea;
+}
+
+.category-management .table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.category-management .btn-primary {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.category-management .btn-primary:hover {
+  background-color: #2980b9;
+  border-color: #2980b9;
+}
+
+.category-management .btn-outline-primary {
+  color: #3498db;
+  border-color: #3498db;
+}
+
+.category-management .btn-outline-primary:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+.category-management .btn-outline-danger {
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.category-management .btn-outline-danger:hover {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.category-management .modal-content {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.category-management .modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.category-management .modal-title {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.category-management .form-label {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.category-management .form-control {
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  padding: 0.5rem 0.75rem;
+}
+
+.category-management .form-control:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.category-management .alert {
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.category-management .spinner-border {
+  color: #3498db;
+}
+
+@media (max-width: 768px) {
+  .category-management .table {
+    font-size: 0.9rem;
+  }
+  
+  .category-management .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+} 

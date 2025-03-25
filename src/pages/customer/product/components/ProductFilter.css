@@ -1,0 +1,27 @@
+.product-filter {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.product-filter .form-group {
+  margin-bottom: 15px;
+}
+
+.product-filter .form-label {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.product-filter .form-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.product-filter button {
+  width: 100%;
+  margin-top: 10px;
+} 

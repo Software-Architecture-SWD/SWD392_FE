@@ -1,0 +1,111 @@
+.user-management {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.user-management h2 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.user-management .table {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-management .table thead th {
+  background-color: #f1f2f6;
+  color: #2c3e50;
+  font-weight: 600;
+  border-bottom: 2px solid #dfe4ea;
+}
+
+.user-management .table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.user-management .badge {
+  font-size: 0.85rem;
+  padding: 0.35em 0.65em;
+}
+
+.user-management .btn-outline-primary {
+  color: #3498db;
+  border-color: #3498db;
+}
+
+.user-management .btn-outline-primary:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+.user-management .btn-outline-danger {
+  color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.user-management .btn-outline-danger:hover {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.user-management .modal-content {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-management .modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.user-management .modal-title {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.user-management .form-label {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.user-management .form-control {
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  padding: 0.5rem 0.75rem;
+}
+
+.user-management .form-control:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.user-management .alert {
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.user-management .spinner-border {
+  color: #3498db;
+}
+
+@media (max-width: 768px) {
+  .user-management .table {
+    font-size: 0.9rem;
+  }
+  
+  .user-management .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .user-management .table td {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+} 
